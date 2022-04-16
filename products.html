@@ -17,12 +17,12 @@
     <div id="container">
         <div id="heading">
             <select name="" id="sortbyPrice">
-                <option value=""> Sort by Price</option>
+                <option value="none"> Sort by Price</option>
                 <option value="priceLowToHigh">Low To high</option>
                 <option value="priceHighToLow">Hight to low</option>
             </select>
             <select name="" id="sortbyRating">
-                <option value=""> Sort by rating</option>
+                <option value="none"> Sort by rating</option>
                 <option value="ratingLowToHigh">Low To high</option>
                 <option value="ratingHighToLow">Hight to low</option>
             </select>
@@ -101,10 +101,67 @@
   ];
 
 localStorage.setItem("finalevunit4products",JSON.stringify(DetailsArr))
-    // var productDetailsArr=JSON.parse(localStorage.getItem("finalevunit4products"));
+    var productDetailsArr=JSON.parse(localStorage.getItem("finalevunit4products"));
     var cartArr=JSON.parse(localStorage.getItem("finalevunit4cartItems")) || [];
-    // document.querySelector("#sortbyprice").addEventListener("change",pricesort);
-    // document.querySelector("#sortbyRating").addEventListener("change",ratingsort)
+    var dataForFilter=JSON.parse(localStorage.getItem("finalevunit4products"));
+
+
+    // document.querySelector("#sortbyPrice").addEventListener("change",function(){
+    //   var pricesortType=document.querySelector("#sortbyPrice").value;
+    //   productPageCreat(priceDataSort(dataForFilter,pricesortType));
+    // })
+
+    // document.querySelector("sortbyRating").addEventListener("change",function(){
+    //   var ratingsortType=document.querySelector("#sortbyRating").value;
+    //   productPageCreat(ratingDataSort(dataForFilter,ratingsortType));
+    // })
+
+
+        
+    document.querySelector('#sortbyPrice').addEventListener('change', function() {
+      var pricesortType = document.querySelector('#sortbyPrice').value;
+      var parr=priceDataSort(dataForFilter,pricesortType);
+      sortpageLoad(parr);
+    });
+
+    document.querySelector('#sortbyRating').addEventListener('change', function() {
+      var ratingsortType = document.querySelector('#sortbyRating').value;
+      var rarr=ratingDataSort(dataForFilter,ratingsortType);
+      sortpageLoad(rarr);
+    });
+
+
+    function priceDataSort(arr,parameter){
+      if(parameter=="none"){
+        return arr;
+      }else if(parameter=="priceLowToHigh"){
+        arr.sort(function(a,b){
+          return a.price-b.price ;
+        });
+      }else{
+        arr.sort(function(a,b){
+          return b.price-a.price ;
+      })      
+    }
+    return arr;
+  }
+
+
+    function ratingDataSort(arr,parameter){
+      if(parameter=="none"){
+        return arr;
+      }else if(parameter=="ratingLowToHigh"){
+        arr.sort(function(a,b){
+          return a.price-b.price ;
+        });
+      }else{
+        arr.sort(function(a,b){
+          return b.price-a.price ;
+      });
+    }
+    return arr;
+  }
+
 
     window.addEventListener("load", intialproductPageCreat);
 
@@ -113,20 +170,10 @@ localStorage.setItem("finalevunit4products",JSON.stringify(DetailsArr))
         productPageCreat(DetailsArr);
     }
 
-
-    // function pricesort(DetailsArr){
-    //     var priceSortArr=[];
-
-    //     productPageCreat(priceSortArr);
-    // }
-
-    // function ratingsort(DetailsArr){
-    //     var ratingSortArr=[];
-        
-    //     productPageCreat(ratingSortArr);
-    // }
-
-
+    function sortpageLoad(arr){
+      productPageCreat(arr)
+     
+    }
 
 
     function productPageCreat(productDetailsArr){
@@ -155,10 +202,6 @@ localStorage.setItem("finalevunit4products",JSON.stringify(DetailsArr))
             alert("Item Added to cart");
 
         })
-
-
-
-
 
         productDiv.append(image,name,rating,price,addToCartButton);
         document.querySelector("#products").append(productDiv)
