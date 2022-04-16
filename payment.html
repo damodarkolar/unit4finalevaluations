@@ -45,7 +45,8 @@ totalAmountTag.innerText="To pay the Amount "+totalAmount;
         var cardName=document.querySelector("#cardName").value;
         
        if(cardNumber.length==16 && cardMonth!="select" && cardYear.length==4 && parseInt(cardYear)>=2022 && cardCvv.length==3 && cardName!==""){
-           alert("Your order is successfully placed");
+           alert("Your order is successfully placed continue to shop");
+           window.location.href="./products.html";
        }
        else{
            alert("Error");
