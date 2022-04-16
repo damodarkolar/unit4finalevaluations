@@ -2,6 +2,16 @@
 <html lang="en">
 <head>
     <title> products Page </title>
+    <style>
+        #container{
+            display: flex;
+            flex-direction: column;
+        }
+        #products{
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+        }
+    </style>
 </head>
 <body> 
     <div id="container">
@@ -150,8 +160,8 @@ localStorage.setItem("finalevunit4products",JSON.stringify(DetailsArr))
 
 
 
-        productDiv.append(image);
-        document.querySelector("#products").append(productDiv,name,rating,price,addToCartButton)
+        productDiv.append(image,name,rating,price,addToCartButton);
+        document.querySelector("#products").append(productDiv)
     })
 
     }
