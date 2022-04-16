@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>cart page</title>
+</head>
+<body>
+    <div id="container">
+        <div id="cartProductDetails">
+
+        </div>
+        <div id="paymentDetails">
+            
+        </div>
+        <div>
+            <button id="placeOrder">Place Order</button>
+
+        </div>
+    </div>    
+</body>
+<script>
+    window.addEventListener("load", cartPageCreator);
+    document.querySelector("#placeOrder").addEventListener("click",navigation);
+    
+
+
+
+    var cartArr=JSON.parse(localStorage.getItem("finalevunit4cartItems")) || [];
+    var totalAmount=localStorage.getItem("finalevunit4totalAmount");
+    var promoAmount=0;
+    var subTotal=0;
+
+
+
+    function cartPageCreator(){
+        cartArr.forEach(element => {           
+        var productDiv=document.createElement("div");
+        var imageDiv=document.createElement("div");
+        var nameDiv=document.createElement("div");
+        var priceDiv=document.createElement("div");
+        var image=document.createElement("img");
+        var imageLink=element.image_url;
+        image.src=imageLink;
+        var name=element.name;
+        var rating=element.rating;
+        var price=element.price;
+        imageDiv.append(image);
+        nameDiv.append(name,rating);
+        priceDiv.append(price);
+        subTotal+=parseInt(price);
+        productDiv.append(imageDiv,nameDiv,priceDiv);
+        document.querySelector("#cartProductDetails").append(productDiv);
+        });
+
+        var subtotalTag=document.createElement("h2");
+        var promoTag=document.createElement("h2");
+        var promoDiv=document.createElement("div");
+        var promoCode=document.createElement("input");
+        promoCode.setAttribute("placeholder","Enter promo code");
+        promoCode.setAttribute("id","promoInput")
+        var applyButton=document.createElement("button");
+        applyButton.innerText="Apply";
+        applyButton.addEventListener("click",function(){
+           var promoValidate=document.querySelector("#promoInput").value;
+            if(promoValidate=="masai30"){
+                promoAmount=10;
+            }else{
+                promoAmount=0;
+            }
+
+        });
+        promoDiv.append(promoCode,applyButton);
+
+        subtotalTag.innerText="Sub Total "+subTotal;
+        promoTag.innerText="Promo Discount "+promoAmount; 
+        var totalTag=document.createElement("h2");
+        totalAmount=((parseInt(subTotal))-(parseInt(promoAmount)));
+        totalTag.innerText=totalAmount;
+        document.querySelector("#paymentDetails").append(promoDiv,subtotalTag,promoTag,totalTag);
+        localStorage.setItem("finalevunit4totalAmount",totalAmount);             
+    }
+
+    function navigation(){
+        localStorage.setItem("finalevunit4totalAmount",totalAmount);   
+        window.location.href="./checkout.html";
+    }
+
+
+
+</script>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Payment Page</title>
+</head>
+<body>
+    <div id="container">
+        <h1 id="paymentAmount"></h1>
+        <form action="" id="paymentPage">
+            <input type="number" placeholder="Enter Card Details" id="cardNumber">
+            <select name="" id="cardMonth">
+                <option value="select">select</option>
+                <option value="01"> 01</option>   
+                <option value="02"> 01</option>   
+                <option value="03"> 01</option>   
+                <option value="04"> 01</option> 
+                <option value="05"> 01</option>   
+                <option value="06"> 01</option> 
+                <option value="07"> 01</option>   
+                <option value="08"> 01</option> 
+                <option value="09"> 01</option>   
+                <option value="10"> 01</option>       
+                <option value="11"> 01</option>   
+                <option value="12"> 01</option>  
+            </select>
+            <input type="number" placeholder="YYYY" id="cardYear">
+            <input type="number" placeholder="CVV" id="cardCvv">
+            <input type="text" placeholder="Enter card holder name" id="cardName">
+            <input type="submit">
+        </form>
+    </div>    
+</body>
+<script>
+    document.querySelector("#paymentPage").addEventListener("submit",cardValidate);
+var totalAmount=parseInt(localStorage.getItem("finalevunit4totalAmount"));
+var totalAmountTag=document.querySelector("#paymentAmount");
+totalAmountTag.innerText="To pay the Amount "+totalAmount;
+
+    function cardValidate(){
+        event.preventDefault();
+        var cardNumber=document.querySelector("#cardNumber").value;
+        var cardMonth=document.querySelector("#cardMonth").value;
+        var cardYear=document.querySelector("#cardYear").value;
+        var cardCvv=document.querySelector("#cardCvv").value;
+        var cardName=document.querySelector("#cardName").value;
+        
+       if(cardNumber.length==16 && cardMonth!="select" && cardYear.length==4 && parseInt(cardYear)>=2022 && cardCvv.length==3 && cardName!==""){
+           alert("Your order is successfully placed");
+       }
+       else{
+           alert("Error");
+       }
+    }
+    
+</script>
+</html>

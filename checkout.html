@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>checkout page</title>
+</head>
+<body>
+    <div id="container">
+        <h1>To place the order</h1>
+        <form action=""id="adressForm">
+            <input type="text" placeholder="Enter Your Name" id="name">
+            <input type="text" placeholder="Enter door number">
+            <input type="text" placeholder="Adress line -1" id="adress1">
+            <input type="text" placeholder="Adress line-2">
+            <input type="text" placeholder="Adress line -3">
+            <input type="text" placeholder="State" id="state">
+            <input type="text" placeholder="District" id="dist">
+            <input type="text" placeholder="Pin code" id="pinCode">
+            <input type="submit" placeholder="Pay now">
+        </form>
+    </div>    
+</body>
+<script>
+    document.querySelector("#adressForm").addEventListener("submit",adressValidator);
+
+function adressValidator(){
+    event.preventDefault()
+    var userName=document.querySelector("#name").value;
+    var userAdreeLine1=document.querySelector("#adress1").value;
+    var state=document.querySelector("#state").value;
+    var dist=document.querySelector("#dist").value;
+    var pinCode=document.querySelector("#pinCode").value;
+
+    if(userName=="" || userAdreeLine1=="" || state=="" || dist=="" || pinCode=="" ){
+        alert("Please enter valid details");
+    }else if(pinCode.length==6){
+        window.location.href="./payment.html";
+   
+    }else{
+        alert("please enter valid pin code");
+    }
+}
+
+</script>
+</html>
